@@ -1,11 +1,11 @@
 {
   "users": [{
     "id": 1,
-    "name": "",
-    "email": ""
+    "name": "Floki Lacanna",
+    "email": "floki@lacanna.com"
   }, {
     "id": 2,
-    "name": "",
-    "email": ""
+    "name": "Thaís Lacanna",
+    "email": "thais@lacanna.com"
   }]
 }
