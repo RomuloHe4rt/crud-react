@@ -1,7 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 
 // eslint-disable-next-line
 export default props =>
-  <a href={`${props.href}`}>
+  <Link to={`${props.href}`}>
     <i className={`fa fa-${props.icon}`}></i> {props.title}
-  </a>
+  </Link>
