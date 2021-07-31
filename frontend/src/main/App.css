@@ -1,8 +1,8 @@
 :root {
   --bg-dark: #1A2F3A;
 
-  --logo-height: 100px;
-  --header-height: 100px;
+  --logo-height: 105px;
+  --header-height: 105px;
   --menu-top-height: 70px;
   --aside-width: 225px;
   --footer-height: 40px;
@@ -23,11 +23,11 @@
   margin: 0px;
   display: grid;
   grid-template-columns: var(--aside-width) 1fr;
-  grid-template-rows:
+  grid-template-rows: 
       var(--header-height)
       1fr
       var(--footer-height);
-  grid-template-areas:
+  grid-template-areas: 
       "logo header"
       "menu content"
       "menu footer";
@@ -49,15 +49,17 @@ aside.menu-area {
 
 main.content {
   grid-area: content;
-}
+} 
 
 footer.footer {
   grid-area: footer;
 }
 
+/* Media Queries */
+
 @media(max-width: 768px) {
   .app {
-      grid-template-rows:
+      grid-template-rows: 
           var(--header-height)
           var(--menu-top-height)
           1fr
@@ -79,10 +81,17 @@ footer.footer {
           1fr
           var(--footer-height);
       grid-template-columns: 1fr;
-      grid-template-areas:
+      grid-template-areas: 
           "logo"
           "menu"
           "content"
-          "footer";
+          "footer"
+  }
+}
+
+@media(max-width: 870px) {
+  #btn-excluir {
+      margin-left: .1rem !important;
+      margin-top: .5rem !important;
   }
 }

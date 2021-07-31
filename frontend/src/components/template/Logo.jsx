@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 
 // eslint-disable-next-line
 export default props =>
-  <aside className="logo">
+  <aside className='logo'>
     <Link to="/" className="logo">
-      <img src={logo} alt="logo" />
+      <img src={logo} alt='logo' />
     </Link>
   </aside>

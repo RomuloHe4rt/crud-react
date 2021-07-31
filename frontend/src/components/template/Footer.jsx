@@ -3,9 +3,10 @@ import React from 'react'
 
 // eslint-disable-next-line
 export default props =>
-  <footer className="footer">
+  <footer className='footer'>
     <span>
-      Desenvolvido com <i className="fa fa-heart text-danger"></i> por
-      <strong> RômuloHe<span className="text-danger">4</span>rt</strong>
+      Curso da <strong> Cod<span className='text-danger'>3</span>r </strong>
+      adaptado com <i className="fa fa-heart text-danger"></i> por
+      <strong> Rômulo Lacanna</strong>
     </span>
   </footer>

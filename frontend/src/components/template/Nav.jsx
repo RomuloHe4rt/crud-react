@@ -1,12 +1,12 @@
 import './Nav.css'
-import NavItem from './NavItem'
 import React from 'react'
+import NavItem from './NavItem'
 
 // eslint-disable-next-line
 export default props =>
-  <aside className="menu-area">
+  <aside className='menu-area'>
     <nav className="menu">
-      <NavItem href="/" icon="home" title="Início" />
-      <NavItem href="/users" icon="users" title="Usuários" />
+      <NavItem path='/' icon='home' name='Início' />
+      <NavItem path='/users' icon='users' name='Usuários' />
     </nav>
   </aside>

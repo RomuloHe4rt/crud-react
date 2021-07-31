@@ -1,28 +1,54 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React from 'react'
 import Main from '../template/Main'
+import UserForm from './UserForm'
+import UserTable from './UserTable'
+import axios from 'axios'
+
+import { NotificationManager } from 'react-notifications'
 
 const headerProps = {
   icon: 'users',
   title: 'Usuários',
-  subtitle: 'Cadastro de usuários: Incluir, Listar, Alterar e Excluir!'
+  subtitle: 'Cadastro de Usuários: Incluir, Listar, Alterar e Excluir'
 }
 
 const baseUrl = 'http://localhost:3001/users'
+
 const initialState = {
-  user: { name: '', email: '' },
+  user: {
+    name: '',
+    email: ''
+  },
   list: []
 }
 
-export default class UserCrud extends Component {
+export default class UserCrud extends React.Component {
+
+  constructor() {
+    super()
+
+    this.state = { ...initialState }
+
+    this.clear = this.clear.bind(this)
+    this.save = this.save.bind(this)
+    this.getUpdatedList = this.getUpdatedList.bind(this)
+    this.updateField = this.updateField.bind(this)
+    this.load = this.load.bind(this)
+    this.remove = this.remove.bind(this)
+    this.handleEnterPress = this.handleEnterPress.bind(this)
+  }
 
   componentWillMount() {
-    axios(baseUrl).then(resp => {
-      this.setState({ list: resp.data })
+    axios.get(baseUrl).then(response => {
+      this.setState({ list: response.data })
     })
   }
 
-  state = { ...initialState }
+  handleEnterPress(event) {
+    if (event.key === 'Enter') {
+      this.save()
+    }
+  }
 
   clear() {
     this.setState({ user: initialState.user })
@@ -32,16 +58,27 @@ export default class UserCrud extends Component {
     const user = this.state.user
     const method = user.id ? 'put' : 'post'
     const url = user.id ? `${baseUrl}/${user.id}` : baseUrl
-    axios[method](url, user)
-      .then(resp => {
-        const list = this.getUpdatedList(resp.data)
-        this.setState({ user: initialState.user, list })
-      })
+
+    if (user.name === '' || user.email === '') {
+      NotificationManager.warning('Nome e e-mail obrigatórios', 'Preencha os campos')
+    } else {
+      axios[method](url, user)
+        .then(response => {
+          const list = this.getUpdatedList(response.data)
+          this.setState({ user: initialState.user, list })
+          if (method === 'post')
+            NotificationManager.success('Usuário criado com sucesso', 'Criar Usuário')
+          else
+            NotificationManager.success('Usuário alterado com sucesso', 'Editar Usuário')
+        })
+    }
+
   }
 
   getUpdatedList(user, add = true) {
     const list = this.state.list.filter(u => u.id !== user.id)
-    if (add) list.unshift(user)
+    if (add)
+      list.unshift(user)
     return list
   }
 
@@ -51,107 +88,33 @@ export default class UserCrud extends Component {
     this.setState({ user })
   }
 
-  renderForm() {
-    return (
-      <div className="form">
-        <div className="row">
-          <div className="col-12 col-md-6">
-            <div className="form-group">
-              <label>Nome</label>
-              <input type="text" className="form-control"
-                name="name"
-                value={this.state.user.name}
-                onChange={e => this.updateField(e)}
-                placeholder="Digite o nome..." />
-            </div>
-          </div>
-
-          <div className="col-12 col-md-6">
-            <div className="form-group">
-              <label>E-mail</label>
-              <input type="text" className="form-control"
-                name="email"
-                value={this.state.user.email}
-                onChange={e => this.updateField(e)}
-                placeholder="Digite o e-mail..." />
-            </div>
-          </div>
-        </div>
-
-        <hr />
-        <div className="row">
-          <div className="col-12 d-flex justify-content-end">
-            <button className="btn btn-primary"
-              onClick={e => this.save(e)}>
-              Salvar
-            </button>
-
-            <button className="btn btn-secondary ml-2"
-              onClick={e => this.clear(e)}>
-              Cancelar
-            </button>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
   load(user) {
     this.setState({ user })
   }
 
   remove(user) {
-    axios.delete(`${baseUrl}/${user.id}`).then(resp => {
-      const list = this.getUpdatedList(user, false)
-      this.setState({ list })
-    })
-  }
-
-  renderTable() {
-    return (
-      <table className="table mt-4">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>E-mail</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.renderRows()}
-        </tbody>
-      </table>
-    )
-  }
-
-  renderRows() {
-    return this.state.list.map(user => {
-      return (
-        <tr key={user.id}>
-          <td>{user.id}</td>
-          <td>{user.name}</td>
-          <td>{user.email}</td>
-          <td>
-            <button className="btn btn-warning"
-              onClick={() => this.load(user)}>
-              <i className="fa fa-pencil"></i>
-            </button>
-            <button className="btn btn-danger ml-2"
-              onClick={() => this.remove(user)}>
-              <i className="fa fa-trash"></i>
-            </button>
-          </td>
-        </tr >
-      )
-    })
+    axios.delete(`${baseUrl}/${user.id}`)
+      .then(response => {
+        const list = this.getUpdatedList(user, false)
+        this.setState({ list })
+        NotificationManager.success('Usuário excluído com sucesso', 'Excluir Usuário')
+      })
   }
 
   render() {
     return (
       <Main {...headerProps}>
-        {this.renderForm()}
-        {this.renderTable()}
+        <UserForm name={this.state.user.name}
+          email={this.state.user.email}
+          clear={this.clear}
+          save={this.save}
+          updateField={this.updateField}
+          handleEnterPress={this.handleEnterPress}
+        />
+        <UserTable list={this.state.list}
+          load={this.load}
+          remove={this.remove}
+        />
       </Main>
     )
   }
