@@ -1,11 +1,19 @@
 {
-  "users": [{
-    "id": 1,
-    "name": "Floki Lacanna",
-    "email": "floki@lacanna.com"
-  }, {
-    "id": 2,
-    "name": "Thaís Lacanna",
-    "email": "thais@lacanna.com"
-  }]
+  "users": [
+    {
+      "id": 1,
+      "name": "Floki Lacanna",
+      "email": "floki@lacanna.com"
+    },
+    {
+      "id": 2,
+      "name": "Thaís Lacanna",
+      "email": "thais@lacanna.com"
+    },
+    {
+      "name": "Ragnar Lodbrok",
+      "email": "ragnar@contato.com",
+      "id": 3
+    }
+  ]
 }
