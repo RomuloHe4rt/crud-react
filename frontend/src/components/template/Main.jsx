@@ -5,7 +5,7 @@ import Header from './Header'
 // eslint-disable-next-line
 export default props =>
   <React.Fragment>
-    <Header />
+    <Header {...props} />
     <main className="content">
       Conteúdo
     </main>
