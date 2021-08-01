@@ -4,10 +4,10 @@ A simple CRUD made with React, Bootstrap, HTML5 and CSS3 with its grid system.
 
 <p align="center">
   <a href="https://github.com/RomuloHe4rt/crud-react">
-    <img src="https://i.ibb.co/7vmtBVC/image01.png" alt="Logo01" />
+    <img src="https://i.ibb.co/7vmtBVC/image01.png" width="500px" alt="Logo01" />
   </a> <br>
-    <img src="https://i.ibb.co/h7M6032/image02.png" alt="Logo02"> <br>
-    <img src="https://i.ibb.co/MGzYZjF/image03.png" alt="Logo03"> <br>
+    <img src="https://i.ibb.co/h7M6032/image02.png" width="500px" alt="Logo02"> <br>
+    <img src="https://i.ibb.co/MGzYZjF/image03.png" width="500px" alt="Logo03"> <br>
   <a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License MIT" />
   </a>
